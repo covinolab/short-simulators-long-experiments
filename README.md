@@ -1,81 +1,138 @@
-# Short simulators, long experiments
+# Short Simulators, Long Experiments
 
-Code, persisted results, and reproduction scripts for the paper
+**A Controlled Audit of Horizon Mismatch in Simulation-Based Inference for Live-Cell Microscopy**
 
-> **Short Simulators, Long Experiments: A Controlled Audit of Horizon Mismatch in Simulation-Based Inference for Live-Cell Microscopy**
-> Michael Alexander Ramirez Sierra and Roberto Covino
-> NeurIPS 2026 Workshop on Sim2Science: ML with Imperfect Scientific Models
+Michael Alexander Ramirez Sierra and Roberto Covino
 
-The paper audits an unstated assumption of simulation-based inference for single-particle-tracking
-microscopy: an estimator trained on short, independently initialized simulated clips is deployed on
-consecutive windows of long experimental recordings. Inside the simulator, where the truth is known,
-the audit compares the two deployment modes on 500 matched parameter settings and grades each
-conclusion of an earlier experimental analysis against the measured effect.
+*Sim2Science: ML with Imperfect Scientific Models · NeurIPS 2026*
 
-The repository regenerates all manuscript figures and recomputes the supplied numerical checks from
-persisted results. Recomputing the full audit analysis and the posterior interval-width statistics
-requires the per-setting files, available from the authors on request. The video corpora and trained
-estimator are not included (see *What is not included*).
+[Read the paper](paper/main.pdf) · [LaTeX source](paper/main.tex) · [Camera-ready self-assessment](paper/SELF_ASSESSMENT.md)
 
-## Layout
+We investigate whether a neural posterior estimator trained on short, independently initialized
+simulations remains reliable when applied to consecutive windows of a longer recording.
+In live-cell microscopy, later windows inherit changes in receptor populations, spatial
+organization, and fluorescence history. Those histories are absent from independently initialized
+training clips.
 
-```
-paper/        camera-ready LaTeX source, bibliography, NeurIPS checklist, style file, figure PDFs
-figures/      make_paper_figures.py builds the four figures and census_transfer.md from evidence/
-evidence/     persisted results (verbatim archive copies, sha256 in MANIFEST.md) and check scripts
-  horizon_audit/        audit arrays, cohort file, 10,000-video recovery, machine report, findings
-  census/               experimental inference results (MET recordings), reports, embedding-distance run
-  code/                 copies of the audit kernel, engine, entry point and method companion
-  camera_ready_checks/  scripts and saved outputs behind the appendix numbers (see its README)
-code/         srm-and-sbi-dimer-alp at the study commit, with one helper script omitted (see PROVENANCE.md)
-```
+## The controlled comparison
 
-## What you can reproduce from this repository
+Using a reaction-diffusion model of receptor dimerization and synthetic microscopy, we compare
+two audit arms at **500 matched parameter settings**:
 
-With the minimal environment (`environment.yml`: Python, NumPy, Matplotlib):
+- **Reset:** ten independently initialized 2-second simulations.
+- **Continuous:** ten consecutive 2-second windows from one 20-second simulation.
+
+Both arms use the same parameters, dynamics, imaging model, and fixed neural estimator.
+**Every estimator input is 2 seconds long.** Exact simulator truth lets us measure how inference
+changes as recording history accumulates.
+
+![The reset arm starts each clip independently; the continuous arm inherits state and history between windows.](figures/fig1_design.png)
+
+## Main findings
+
+By the final window, the effect depends on the inferred quantity:
+
+| Quantity | Mean absolute error: reset → continuous window 10 | Assessment |
+| --- | --- | --- |
+| Dimer-complex fraction | 2.9 → 8.3 percentage points | Additional error exceeds the prespecified tolerance |
+| Dimer unbinding rate | ×1.53 → ×3.02 | Additional error exceeds the prespecified tolerance |
+| Monomer diffusion coefficient | ×1.05 → ×1.07 | Additional error remains within tolerance |
+
+The dimer-complex fraction counts dimers among molecular complexes. For rates and diffusion,
+the × values are 10 raised to the mean absolute log10 error. The tolerances are defined from
+held-out recovery performance; the paper reports the paired contrasts and confidence intervals.
+
+For composition, coverage of the central **90% credible interval falls from 95% to 39%**, while
+the intervals narrow slightly. Averaging windows reduces total error but does not remove the
+additional error associated with inherited history.
+
+Applied as an uncalibrated sensitivity calculation, the simulated effect is small relative to
+the inferred difference between resting and InlB-activated MET recordings. This comparison does
+not correct experimental estimates or establish the cause of their temporal trends.
+The findings characterize the tested simulator, estimator, and deployment pattern.
+
+## Reproduce the figures and numerical checks
+
+The included analysis runs on CPU from saved results. Create the minimal environment and run:
 
 ```bash
-conda env create -f environment.yml && conda activate short-simulators-long-experiments
-python figures/make_paper_figures.py                      # Figures 1-4 (pdf+png) and figures/census_transfer.md
-python evidence/camera_ready_checks/local_checks.py       # Appendix A/E/G numbers and Figure 4b values
+git clone https://github.com/covinolab/short-simulators-long-experiments.git
+cd short-simulators-long-experiments
+conda env create -f environment.yml
+conda activate short-simulators-long-experiments
+
+python figures/make_paper_figures.py
+python evidence/camera_ready_checks/local_checks.py
 ```
 
-- **Every figure** (Figures 1 to 4) is regenerated from `evidence/` by `figures/make_paper_figures.py`.
-- **The supplied numerical checks** (`evidence/camera_ready_checks/local_checks.py`) recompute the Appendix
-  A, E and G numbers and the Figure 4b values from `evidence/`. The remaining table and appendix numbers
-  trace to `evidence/horizon_audit/report.md` (the machine report of the audit) and to
-  `figures/census_transfer.md`; `evidence/horizon_audit/findings.md` is the narrative record of the analysis.
-- **The paper** builds with `cd paper && tectonic main.tex` (or `pdflatex` + `bibtex`).
-- **Not recomputable from this repository alone:** the audit's analysis phase
-  (`SRM_AND_SBI_DIMER_ALP_Horizon_Audit.py --phase analyze` in `code/`) and the posterior interval-width
-  statistics of Appendix F (`evidence/camera_ready_checks/interval_widths_rcl01.py`) both read the 500
-  per-setting result files (601 MB, posterior draws included), which are not bundled and are available
-  from the authors on request. The saved outputs of both calculations are included; they document the
-  calculations but do not replace the data needed to rerun them.
+The first script regenerates **Figures 1–4** as PDFs and PNGs and writes the sensitivity summary
+to [`figures/census_transfer.md`](figures/census_transfer.md). The second recomputes the supplied
+checks for Appendices A, E, and G and the experimental time-course values in Figure 4(b).
 
-## What is not included, and how to obtain it
+Definitions, bootstrap seeds, and execution order are documented in the
+[numerical-check README](evidence/camera_ready_checks/README.md). The figure script uses a
+separate bootstrap stream; its confidence-interval endpoints can differ from those quoted in
+the paper by up to 0.1 percentage points.
 
-| item | status |
-|---|---|
-| 2 s simulated video corpora (200,000 TRAIN, 50,000 TEST, 25,000 EVAL videos; 662 GiB TRAIN+TEST) | not bundled; regenerable with `code/` on an HPC system (paper Appendix H gives the measured resources) |
-| trained estimator checkpoint | not released |
-| horizon-audit per-setting files (videos not kept; posteriors and truths kept, 601 MB) | available on request |
-| experimental MET recordings | public, BioStudies accession S-BSST712 (Baldering et al.; see the paper's references) |
+To rebuild the paper with [Tectonic](https://tectonic-typesetting.github.io/):
 
-Re-running corpus generation, training, or the audit's generation and inference phases requires the
-full environment in `code/srm-and-sbi-dimer-alp/env_snapshots/README.md` (ReaDDy 2.0.14, PyTorch, sbi
-0.26.1) and the compute described in the paper's Appendix H.
+```bash
+cd paper
+tectonic main.tex
+```
 
-## Notes on the numbers
+## Repository contents
 
-- Bootstrap intervals in the paper come from `evidence/camera_ready_checks/local_checks.py` (seed
-  recorded in its README). `figures/census_transfer.md` recomputes the same means with the figure
-  script's own seed; its interval endpoints may differ from the paper's by up to 0.1 pp.
-- The evidence directory and its manifest were assembled for the paper's submission and extended for the
-  camera-ready version; `evidence/MANIFEST.md` says which files are archive copies and which are derived checks.
+| Location | Contents |
+| --- | --- |
+| [`paper/`](paper/) | Camera-ready PDF, LaTeX source, bibliography, checklist, and self-assessment |
+| [`figures/`](figures/) | Figure-generation script, generated figures, and sensitivity calculations |
+| [`evidence/`](evidence/) | Saved audit, recovery, and experimental-inference results, reports, and numerical checks |
+| [`code/`](code/) | Simulator and inference code snapshot used for the study |
+
+The code snapshot is version **0.4.20**, commit **`2d24491`**, of
+[`srm-and-sbi-dimer-alp`](https://github.com/srm-and-sbi/srm-and-sbi-dimer-alp).
+[PROVENANCE.md](PROVENANCE.md) records its origin and the omission of one fleet-synchronization
+helper. The [evidence manifest](evidence/MANIFEST.md) records archived sources and checksums and
+identifies the derived camera-ready checks.
+
+## Data access and reproduction scope
+
+The bundled results support all figure generation and the supplied numerical checks.
+Recomputing the **full audit analysis** and the **posterior interval-width statistics in
+Appendix F** requires the 500 per-setting result files, including posterior draws and truths
+(601 MB). These are available from the authors on request. Saved outputs document those
+calculations; they do not replace the files needed to rerun them.
+
+The simulated video corpora and trained estimator checkpoint are not included. Generating
+corpora, training an estimator, or running the audit's simulation and inference phases requires
+the [full scientific environment](code/srm-and-sbi-dimer-alp/env_snapshots/README.md) and the
+computational resources described in Appendix H.
+
+The experimental MET recordings are available through BioStudies, accession
+[S-BSST712](https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BSST712).
+For the per-setting files, contact
+[Michael Alexander Ramirez Sierra](mailto:ramirez-sierra@fias.uni-frankfurt.de).
+
+## Contributors
+
+**Michael Alexander Ramirez Sierra and Roberto Covino** are the authors of the study.
+The research was developed with human-directed AI assistance:
+
+| Contributor | Assistance |
+| --- | --- |
+| **ChatGPT / Codex (OpenAI)** | Scientific discussion, planning, review, numerical verification, visualization, writing, and release preparation |
+| **Claude (Anthropic)** | Implementation, computational workflows, documentation, and manuscript revision |
+
+The human authors directed the research, approved the scientific decisions and final claims,
+and retain responsibility for the work. These assistants supported research development;
+they are not components of the simulator, neural inference method, or statistical calculations
+at execution time. The paper's checklist describes this assistance.
 
 ## Citation and license
 
-See `CITATION.cff` for the authors and their institutions. The repository is released under the MIT
-License (`LICENSE`), with the copyright notice of the source code repository preserved; the code
-snapshot carries the same notice in `code/srm-and-sbi-dimer-alp/LICENSE`.
+Please cite the paper when using these materials. [CITATION.cff](CITATION.cff) provides the
+author and citation metadata.
+
+The repository uses the [MIT License](LICENSE). The original copyright notice is preserved,
+including in the [code snapshot's license](code/srm-and-sbi-dimer-alp/LICENSE).
