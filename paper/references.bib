@@ -1,0 +1,388 @@
+% Verified reference base for the Sim2Science submission.
+% Every entry lists its DOI/URL as the anchor; VERIFIED = details checked against the
+% publisher/PMC record on 2026-08-24. Entries marked CHECK need a field verified before
+% camera-ready. Internal project reports are provenance artifacts, never literature citations.
+
+% ---------------- MET biology (the experimental system) ----------------
+
+@article{harwardt2017membrane,
+  author  = {Harwardt, Marie-Lena I.~E. and Young, Phoebe and Bleym{\"u}ller, Willem M. and
+             Meyer, Timo and Karathanasis, Christos and Niemann, Hartmut H. and
+             Heilemann, Mike and Dietz, Marina S.},
+  title   = {Membrane dynamics of resting and internalin {B}-bound {MET} receptor tyrosine
+             kinase studied by single-molecule tracking},
+  journal = {FEBS Open Bio},
+  volume  = {7},
+  number  = {9},
+  pages   = {1422--1440},
+  year    = {2017},
+  doi     = {10.1002/2211-5463.12285},
+  comment = {VERIFIED. Data: BioStudies S-BSST712. Acquisition began ~3 min after ligand
+             addition; measurements at 23\,{\textdegree}C; N = 60 cells per condition.
+             Provides mobility classes and ensemble diffusion; reports NO monomer/dimer
+             fractions -- same data lineage as this work, so mobility triangulation only.}
+}
+
+@article{dietz2013single,
+  author  = {Dietz, Marina S. and Ha{\ss}e, Daniela and Ferraris, Davide M. and
+             G{\"o}hler, Antonia and Niemann, Hartmut H. and Heilemann, Mike},
+  title   = {Single-molecule photobleaching reveals increased {MET} receptor dimerization
+             upon ligand binding in intact cells},
+  journal = {BMC Biophysics},
+  volume  = {6},
+  pages   = {6},
+  year    = {2013},
+  doi     = {10.1186/2046-1682-6-6},
+  comment = {VERIFIED. 18\% / 29\% dimer-associated spot fractions (rest / InlB321) that the
+             authors state are underestimated (sub-stoichiometric labeling): protocol-specific
+             values, not transferable lower bounds.}
+}
+
+@article{baldering2021crispr,
+  author  = {Baldering, Tim N. and Karathanasis, Christos and Harwardt, Marie-Lena I.~E. and
+             Freund, Petra and Meurer, Matthias and Rahm, Johanna V. and Knop, Michael and
+             Dietz, Marina S. and Heilemann, Mike},
+  title   = {{CRISPR/Cas12a}-mediated labeling of {MET} receptor enables quantitative
+             single-molecule imaging of endogenous protein organization and dynamics},
+  journal = {iScience},
+  volume  = {24},
+  number  = {1},
+  pages   = {101895},
+  year    = {2021},
+  doi     = {10.1016/j.isci.2020.101895},
+  comment = {VERIFIED against PMC7753144. Detection-corrected qPALM, endogenous MET-mEos4b in
+             HEK293T: 5$\pm$1\% dimers at rest, 63$\pm$2\% after InlB (68$\pm$4\% among
+             ligand-colocalized spots; 71$\pm$3\% after HGF). Shares laboratory lineage with
+             harwardt2017membrane/dietz2013single.}
+}
+
+@article{li2026fret,
+  author  = {Li, Yunqing and Dietz, Marina S. and Barth, Hans-Dieter and
+             Niemann, Hartmut H. and Heilemann, Mike},
+  title   = {Single-Molecule {FRET}-Tracking of {MET} Receptor Dynamics},
+  journal = {Small},
+  volume  = {22},
+  pages   = {e07115},
+  year    = {2026},
+  doi     = {10.1002/smll.202507115},
+  comment = {VERIFIED against PMC12824565. Donor-only D: 0.109$\pm$0.068 and
+             0.093$\pm$0.053 um^2/s (mean$\pm$SD, two constructs). Apparent (MET:InlB)$_2$
+             lifetimes 1.13$\pm$0.06 s and 0.80$\pm$0.03 s. NO dissociation rate is published;
+             any 1/s comparison scale is derived in this project by inversion.}
+}
+
+% ---------------- Simulation-based inference (methods) ----------------
+
+@article{cranmer2020frontier,
+  author  = {Cranmer, Kyle and Brehmer, Johann and Louppe, Gilles},
+  title   = {The frontier of simulation-based inference},
+  journal = {Proceedings of the National Academy of Sciences},
+  volume  = {117},
+  number  = {48},
+  pages   = {30055--30062},
+  year    = {2020},
+  doi     = {10.1073/pnas.1912789117},
+  comment = {VERIFIED (standard citation).}
+}
+
+@inproceedings{vaswani2017attention,
+  author    = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and
+               Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and
+               Kaiser, Lukasz and Polosukhin, Illia},
+  title     = {Attention Is All You Need},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {30},
+  year      = {2017},
+  url       = {https://papers.neurips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html},
+  comment   = {Primary reference for the Transformer architecture.}
+}
+
+@inproceedings{papamakarios2017masked,
+  author    = {Papamakarios, George and Pavlakou, Theo and Murray, Iain},
+  title     = {Masked Autoregressive Flow for Density Estimation},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {30},
+  year      = {2017},
+  url       = {https://papers.neurips.cc/paper_files/paper/2017/hash/6c1da886822c67822bcf3679d04369fa-Abstract.html},
+  comment   = {Primary reference for masked autoregressive flows.}
+}
+
+@inproceedings{greenberg2019automatic,
+  author    = {Greenberg, David S. and Nonnenmacher, Marcel and Macke, Jakob H.},
+  title     = {Automatic posterior transformation for likelihood-free inference},
+  booktitle = {Proceedings of the 36th International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {97},
+  pages     = {2404--2414},
+  year      = {2019},
+  url       = {https://proceedings.mlr.press/v97/greenberg19a.html},
+  comment   = {VERIFIED (standard citation).}
+}
+
+@article{boelts2025sbi,
+  author  = {Boelts, Jan and Deistler, Michael and Gl{\"o}ckler, Manuel and
+             Tejero-Cantero, {\'A}lvaro and Lueckmann, Jan-Matthis and Moss, Guy and
+             Steinbach, Peter and Moreau, Thomas and Muratore, Fabio and Linhart, Julia and
+             Durkan, Conor and Vetter, Julius and Miller, Benjamin Kurt and Herold, Maternus and
+             Ziaeemehr, Abolfazl and Pals, Matthijs and Gruner, Theo and Bischoff, Sebastian and
+             Krouglova, Nastya and Gao, Richard and Lappalainen, Janne K. and
+             Mucs{\'a}nyi, B{\'a}lint and Pei, Felix and Schulz, Auguste and Stefanidi, Zinovia and
+             Rodrigues, Pedro and Schr{\"o}der, Cornelius and Zaid, Faried Abu and Beck, Jonas and
+             Kapoor, Jaivardhan and Greenberg, David S. and Gon{\c{c}}alves, Pedro J. and
+             Macke, Jakob H.},
+  title   = {{sbi} reloaded: a toolkit for simulation-based inference workflows},
+  journal = {Journal of Open Source Software},
+  volume  = {10},
+  number  = {108},
+  pages   = {7754},
+  year    = {2025},
+  publisher = {The Open Journal},
+  doi     = {10.21105/joss.07754},
+  url     = {https://doi.org/10.21105/joss.07754},
+  comment = {VERIFIED against the official JOSS citation record.}
+}
+
+@inproceedings{ward2022robust,
+  author    = {Ward, Daniel and Cannon, Patrick and Beaumont, Mark and
+               Fasiolo, Matteo and Schmon, Sebastian M.},
+  title     = {Robust neural posterior estimation and statistical model criticism},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {35},
+  year      = {2022},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2022/hash/db0eac6747e3631eb91095cd76065611-Abstract-Conference.html},
+  comment   = {VERIFIED (NeurIPS 2022 proceedings hash).}
+}
+
+@article{talts2018validating,
+  author  = {Talts, Sean and Betancourt, Michael and Simpson, Daniel and
+             Vehtari, Aki and Gelman, Andrew},
+  title   = {Validating {Bayesian} inference algorithms with simulation-based calibration},
+  journal = {arXiv preprint arXiv:1804.06788},
+  year    = {2018},
+  url     = {https://arxiv.org/abs/1804.06788},
+  comment = {VERIFIED (standard citation).}
+}
+
+% ---------------- Statistics of the audit ----------------
+
+@article{lazic2010pseudoreplication,
+  author  = {Lazic, Stanley E.},
+  title   = {The problem of pseudoreplication in neuroscientific studies: is it affecting
+             your analysis?},
+  journal = {BMC Neuroscience},
+  volume  = {11},
+  pages   = {5},
+  year    = {2010},
+  doi     = {10.1186/1471-2202-11-5},
+  comment = {VERIFIED (standard citation). Correlated windows; the trajectory/recording as
+             the independent unit.}
+}
+
+@article{lakens2018equivalence,
+  author  = {Lakens, Daniel and Scheel, Anne M. and Isager, Peder M.},
+  title   = {Equivalence testing for psychological research: a tutorial},
+  journal = {Advances in Methods and Practices in Psychological Science},
+  volume  = {1},
+  number  = {2},
+  pages   = {259--269},
+  year    = {2018},
+  doi     = {10.1177/2515245918770963},
+  comment = {VERIFIED (standard citation). Prespecified margins; a CI covering zero is not
+             evidence of equivalence.}
+}
+
+@article{gretton2012kernel,
+  author  = {Gretton, Arthur and Borgwardt, Karsten M. and Rasch, Malte J. and
+             Sch{\"o}lkopf, Bernhard and Smola, Alexander},
+  title   = {A kernel two-sample test},
+  journal = {Journal of Machine Learning Research},
+  volume  = {13},
+  pages   = {723--773},
+  year    = {2012},
+  url     = {https://www.jmlr.org/papers/v13/gretton12a.html},
+  comment = {VERIFIED (standard citation). MMD reads a distribution difference, nothing more.}
+}
+
+@inproceedings{lopezpaz2017revisiting,
+  author    = {Lopez-Paz, David and Oquab, Maxime},
+  title     = {Revisiting classifier two-sample tests},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1610.06545},
+  comment   = {VERIFIED (standard citation). C2ST; the class-imbalance baseline matters.}
+}
+
+% ---------------- Simulator engine + point-summary methodology ----------------
+
+@article{hoffmann2019readdy,
+  author  = {Hoffmann, Moritz and Fr{\"o}hner, Christoph and No{\'e}, Frank},
+  title   = {{ReaDDy} 2: fast and flexible software framework for interacting-particle
+             reaction dynamics},
+  journal = {PLoS Computational Biology},
+  volume  = {15},
+  number  = {2},
+  pages   = {e1006830},
+  year    = {2019},
+  doi     = {10.1371/journal.pcbi.1006830},
+  comment = {VERIFIED (standard citation). Supports the engine, not the biological adequacy
+             of the A+A <-> B <-> C scheme.}
+}
+
+@article{ramirezsierra2025sgm,
+  author  = {Ram{\'i}rez Sierra, Michael Alexander and Sokolowski, Thomas R.},
+  title   = {Comparing {AI} versus optimization workflows for simulation-based inference of
+             spatial-stochastic systems},
+  journal = {Machine Learning: Science and Technology},
+  volume  = {6},
+  number  = {1},
+  pages   = {010502},
+  year    = {2025},
+  doi     = {10.1088/2632-2153/ada0a3},
+  comment = {VERIFIED against the Crossref record for the DOI (title, author list, volume,
+             issue, page). Replaces a placeholder title that must never have been cited.
+             SELF-CITATION: cite in the third person only under double-blind -- never "our
+             previous work".}
+}
+
+% ------- Horizon / initialization prior art (added 2026-08-25, adversarially verified) -------
+% Sources below were verified against primary records by a multi-agent literature audit;
+% 9 candidate claims were REFUTED in that pass and are recorded in the claim ledger.
+
+@inproceedings{gloeckler2025compositional,
+  author    = {Gloeckler, Manuel and Toyota, Shoji and Fukumizu, Kenji and Macke, Jakob H.},
+  title     = {Compositional simulation-based inference for time series},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025},
+  eprint    = {2411.02728},
+  archivePrefix = {arXiv},
+  url       = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/aa539a128dc8653408dab242f6042c84-Abstract-Conference.html},
+  comment   = {VERIFIED (arXiv, ICLR 2025 proceedings, poster 27993). CLOSEST METHODOLOGICAL ANALOGUE FOUND:
+               trains on single-state transitions from a designed proposal, slices long series at
+               deployment, requires proposal support at every attainable state, and shows NPE
+               trained on short segments (Tmax=10) failing to generalize to longer series (SIR).
+               Scope: Markovian, time-invariant transitions; no experimental microscopy.}
+}
+
+@inproceedings{schmitt2023detecting,
+  author    = {Schmitt, Marvin and B{\"u}rkner, Paul-Christian and K{\"o}the, Ullrich and Radev, Stefan T.},
+  title     = {Detecting model misspecification in amortized {B}ayesian inference with neural networks},
+  booktitle = {DAGM German Conference on Pattern Recognition (GCPR)},
+  year      = {2023},
+  eprint    = {2112.08866},
+  archivePrefix = {arXiv},
+  comment   = {VERIFIED (GCPR 2023 camera-ready; extended arXiv:2406.03154). MMD criterion in
+               learned summary space detects simulation gaps at test time. PREDATES Cannon et al.
+               2022 (v1 Dec 2021) -- do NOT call Cannon the first study of neural-SBI
+               misspecification. Never applied to window position or initialization.}
+}
+
+@article{cannon2022investigating,
+  author  = {Cannon, Patrick and Ward, Daniel and Schmon, Sebastian M.},
+  title   = {Investigating the impact of model misspecification in neural simulation-based inference},
+  journal = {arXiv preprint},
+  year    = {2022},
+  eprint  = {2209.01845},
+  archivePrefix = {arXiv},
+  comment   = {VERIFIED. Misspecification operationalized ONLY as static observation-space
+               transforms (additive Gaussian noise; a scale transform on a time-series segment).
+               Authors acknowledge the transforms are deliberately simple and static. Cite for the
+               generic OOD-overconfidence failure, NOT for the initialization/horizon axis.}
+}
+
+@article{munozgil2021objective,
+  author  = {Mu{\~n}oz-Gil, Gorka and Volpe, Giovanni and Garcia-March, Miguel Angel and others},
+  title   = {Objective comparison of methods to decode anomalous diffusion},
+  journal = {Nature Communications},
+  volume  = {12},
+  pages   = {6253},
+  year    = {2021},
+  comment   = {VERIFIED. 1st AnDi Challenge. CAUTION: do NOT write that it trained/evaluated
+               "exclusively" on simulated data -- experimental trajectories WERE distributed and
+               analyzed in a dedicated section, but excluded from scoring for lack of ground
+               truth. That exclusion is the precise, defensible point.}
+}
+
+@article{munozgil2025quantitative,
+  author  = {Mu{\~n}oz-Gil, Gorka and others},
+  title   = {Quantitative evaluation of methods to analyze motion changes in single-particle experiments},
+  journal = {Nature Communications},
+  volume  = {16},
+  pages   = {6749},
+  year    = {2025},
+  eprint  = {2311.18100},
+  archivePrefix = {arXiv},
+  comment   = {VERIFIED. 2nd AnDi Challenge: fixed-length T=200 independently simulated fields of
+               view; blinking and photobleaching explicitly NOT modeled (pristine photophysics);
+               non-stationarity only as within-clip changepoints; no window-position audit.}
+}
+
+@article{kaestelhansen2025deep,
+  author  = {K{\ae}stel-Hansen, Jacob and others},
+  title   = {Deep learning-assisted analysis of single-particle tracking for automated correlation between diffusion and function},
+  journal = {Nature Methods},
+  volume  = {22},
+  pages   = {1091--1100},
+  year    = {2025},
+  comment   = {VERIFIED (PMC12272723). DeepSPT. CAUTION: only module M1 (segmentation U-Net) is
+               simulation-trained (300,000 simulated trajectories); the headline F1 scores come
+               from DOWNSTREAM classifiers trained on LABELED EXPERIMENTAL data. Do not attribute
+               those F1 scores to the simulation-trained component. Robustness analyses vary
+               simulation parameters only.}
+}
+
+@article{metzler2014anomalous,
+  author  = {Metzler, Ralf and Jeon, Jae-Hyung and Cherstvy, Andrey G. and Barkai, Eli},
+  title   = {Anomalous diffusion models and their properties: non-stationarity, non-ergodicity,
+             and ageing at the centenary of single particle tracking},
+  journal = {Physical Chemistry Chemical Physics},
+  volume  = {16},
+  pages   = {24128--24164},
+  year    = {2014},
+  comment   = {VERIFIED. The PHYSICS-LEVEL analogue of the horizon gap: time-averaged observables
+               from one long trajectory differ systematically from ensemble averages over
+               independent initializations; ageing/non-stationarity are first-class. Contains no
+               treatment of neural/amortized estimators -- it calibrates, not refutes, novelty.}
+}
+
+@inproceedings{lemos2023sampling,
+  author    = {Lemos, Pablo and Coogan, Adam and Hezaveh, Yashar and Perreault-Levasseur, Laurence},
+  title     = {Sampling-based accuracy testing of posterior estimators for general inference},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  series    = {PMLR},
+  volume    = {202},
+  pages     = {19256--19273},
+  year      = {2023},
+  comment   = {VERIFIED. TARP. Coverage/calibration axis, validated on data from the assumed
+               generative model -- silent on train/deploy inherited-state shift by construction.}
+}
+
+@article{frazier2021synthetic,
+  author  = {Frazier, David T. and Nott, David J. and Drovandi, Christopher},
+  title   = {Synthetic likelihood in misspecified models},
+  journal = {Journal of the American Statistical Association},
+  year    = {2024},
+  eprint  = {2104.03436},
+  archivePrefix = {arXiv},
+  comment   = {VERIFIED (arXiv:2104.03436; JASA). Misspecification defined ONLY as
+               summary-statistic incompatibility. Even its time-series running example treats
+               wrong dynamics/observation form, not initialization or windowing.}
+}
+
+@article{dingeldein2025simulation,
+  author  = {Dingeldein, Lars and Cossio, Pilar and Covino, Roberto},
+  title   = {Simulation-based inference of single-molecule experiments},
+  journal = {Current Opinion in Structural Biology},
+  volume  = {91},
+  pages   = {102988},
+  year    = {2025},
+  doi     = {10.1016/j.sbi.2025.102988},
+  eprint  = {2410.15896},
+  archivePrefix = {arXiv},
+  comment = {VERIFIED against Crossref and the arXiv record (three authors; vol. 91, 102988).
+             Examined in the literature audit: it reviews SBI across single-molecule methods
+             (force spectroscopy, cryo-EM) that all train neural estimators on forward-simulated
+             observations and deploy on experimental recordings -- the force-spectroscopy
+             pipeline it describes trains on independently initialized simulations drawn from
+             the prior, exactly the reset regime. It discusses model mismatch explicitly but
+             reports no horizon or window-position check, which is the point we cite it for.}
+}

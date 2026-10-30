@@ -1,0 +1,29 @@
+== 1. Strata and start counts (true composition, strata [0,0.2), [0.2,0.8), [0.8,1]) ==
+window-10 start: n = 417 81 2
+first-frame start in [0.8,1]: 230 | strictly above 0.8: 226
+initial LABEL (theta counts) strictly above 0.8: 227 | rounded counts: 226
+
+== 2. Signed f_D shift, continuous minus reset mean (pp) ==
+stratum w10 [0,0.2)                window 10: +6.95 pp [+5.93, +8.00] (n=417) | recording mean: +4.51 pp [+3.84, +5.23] (n=417)
+stratum w10 [0.2,0.8)              window 10: -7.10 pp [-9.60, -4.51] (n=81) | recording mean: -6.54 pp [-8.19, -4.87] (n=81)
+stratum w10 [0.8,1]                window 10: -30.24 pp [-34.17, -26.31] (n=2) | recording mean: -18.01 pp [-21.85, -14.16] (n=2)
+label f_D < 0.4 (resting-like)     window 10: +5.62 pp [+4.12, +7.22] (n=115) | recording mean: +3.40 pp [+2.61, +4.28] (n=115)
+label f_D > 0.7 (activated-like)   window 10: +3.47 pp [+1.97, +5.14] (n=276) | recording mean: +1.89 pp [+0.74, +3.02] (n=276)
+all                                window 10: +4.53 pp [+3.43, +5.64] (n=500) | recording mean: +2.63 pp [+1.95, +3.42] (n=500)
+continuous error alone at window 10 by stratum (pp, no reset baseline): [6.47, -7.19, -30.2]
+
+== 3. Tolerances: optimized point estimate vs marginal median; verdict robustness ==
+diffusivity_alp    MAE optimized 0.0227 dex (x1.054) | median 0.0222 dex (x1.053)
+rate_dissociation  MAE optimized 0.1773 dex (x1.504) | median 0.1788 dex (x1.509)
+diffusivity_alp    window 10  contrast +0.0075 dex [+0.0032, +0.0123] (n=500)  -> {'optimized': 'equivalent', 'median': 'equivalent'}
+diffusivity_alp    recording  contrast +0.0059 dex [+0.0032, +0.0089] (n=500)  -> {'optimized': 'equivalent', 'median': 'equivalent'}
+                   recording-level errors: reset 0.013 cont 0.019 dex
+rate_dissociation  window 10  contrast +0.2945 dex [+0.2688, +0.3219] (n=500)  -> {'optimized': 'degraded', 'median': 'degraded'}
+rate_dissociation  recording  contrast +0.2063 dex [+0.1888, +0.2240] (n=500)  -> {'optimized': 'degraded', 'median': 'degraded'}
+                   recording-level errors: reset 0.139 cont 0.346 dex
+
+== 4. Experimental per-window time course (in-draw mean f_D; mean and cell-level s.e.m., %) ==
+resting (ALP = MET-FAB)      cells 25 | condition mean 31.4 +/- 2.0 | window 1 32.5 +/- 3.2 | window 10 31.7 +/- 2.9
+   by window: [32.5 32.7 32.8 31.  31.3 30.4 29.6 30.4 31.2 31.7]
+activated (BET = MET-INLB)   cells 25 | condition mean 78.2 +/- 3.7 | window 1 87.0 +/- 3.7 | window 10 70.2 +/- 4.0
+   by window: [87.  84.1 82.2 79.9 78.3 78.4 76.3 73.8 71.8 70.2]

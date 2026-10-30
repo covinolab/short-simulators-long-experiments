@@ -1,0 +1,15 @@
+main cohort 936727a9bd6b | result files 500
+settings used 500; 2 s
+f_D 90% width (pp), continuous by window 1..10, mean over settings: [15.134 15.65  14.203 13.247 12.954 12.706 12.809 12.991 13.224 13.605]
+f_D 90% width (pp), reset mean over settings and clips: 15.2453
+f_D 50% width (pp), continuous by window 1..10: [6.06  6.397 5.77  5.354 5.258 5.14  5.178 5.26  5.367 5.533]
+f_D 50% width (pp), reset mean: 6.1026
+bootstrap: default_rng(1), 2000 resamples over settings, 95% percentile interval
+  90% cont w1                  mean  15.134 pp [ 14.465,  15.831]
+  90% cont w10                 mean  13.605 pp [ 12.838,  14.385]
+  90% reset                    mean  15.245 pp [ 14.543,  15.882]
+  50% cont w1                  mean   6.060 pp [  5.773,   6.343]
+  50% cont w10                 mean   5.533 pp [  5.205,   5.865]
+  50% reset                    mean   6.103 pp [  5.828,   6.391]
+  90% paired change w10 - w1   mean  -1.529 pp [ -2.116,  -0.930]
+  50% paired change w10 - w1   mean  -0.527 pp [ -0.775,  -0.272]

@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the workshop paper below."
+type: software
+title: "short-simulators-long-experiments: code, results, and scripts for the Sim2Science 2026 paper"
+authors:
+  - family-names: "Ramirez Sierra"
+    given-names: "Michael Alexander"
+    email: "ramirez-sierra@fias.uni-frankfurt.de"
+    affiliation: "Goethe University Frankfurt; Cluster of Excellence SubCellular Architecture of Life (SCALE); Frankfurt Institute for Advanced Studies (FIAS)"
+  - family-names: "Covino"
+    given-names: "Roberto"
+    email: "covino@fias.uni-frankfurt.de"
+    affiliation: "Goethe University Frankfurt; Cluster of Excellence SubCellular Architecture of Life (SCALE); Frankfurt Institute for Advanced Studies (FIAS)"
+license: MIT
+repository-code: "https://github.com/covinolab/short-simulators-long-experiments"
+preferred-citation:
+  type: conference-paper
+  title: "Short Simulators, Long Experiments: A Controlled Audit of Horizon Mismatch in Simulation-Based Inference for Live-Cell Microscopy"
+  authors:
+    - family-names: "Ramirez Sierra"
+      given-names: "Michael Alexander"
+    - family-names: "Covino"
+      given-names: "Roberto"
+  collection-title: "NeurIPS 2026 Workshop on Sim2Science: ML with Imperfect Scientific Models"
+  year: 2026

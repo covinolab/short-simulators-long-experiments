@@ -1,0 +1,12 @@
+# Minimal environment for the reproduction scripts in this repository
+# (figures/make_paper_figures.py and evidence/camera_ready_checks/*.py).
+# The full simulation and inference stack used for the study is specified in
+# code/srm-and-sbi-dimer-alp/environment.yml and code/srm-and-sbi-dimer-alp/env_snapshots/README.md.
+name: short-simulators-long-experiments
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python>=3.10
+  - numpy>=1.24
+  - matplotlib>=3.7
